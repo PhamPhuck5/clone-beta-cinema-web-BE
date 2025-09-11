@@ -1,0 +1,1 @@
+function checkRight(right, minRight) {}

@@ -1,0 +1,13 @@
+/dist
+/node_modules
+
+.env
+comman.md
+sequelize.md
+
+*.log
+.DS_Store
+Thumbs.db
+
+*.tsbuildinfo
+.vscode/
