@@ -47,7 +47,7 @@ async function findOldOrderByID(id) {
 }
 //*in error
 async function rawRefreshNewOrder() {
-  const t = await db.transaction();
+  const t = await db.sequelize.transaction();
   try {
     await sequelize.query(
       `
@@ -152,7 +152,7 @@ const orderServices = {
   removeMovieByInstance: removeMovieByInstance,
   findNewOrderByID: findNewOrderByID,
   findOldOrderByID: findOldOrderByID,
-  refreshNewOrder: rawRefreshNewOrder,
+  refreshNewOrder: refreshNewOrder,
   findNumberBusySeatByScreeningID: findNumberBusySeatByScreeningID,
   findBusySeatByScreeningID: findBusySeatByScreeningID,
   makeOrders: makeOrders,

@@ -53,6 +53,10 @@ async function findUserByID(id) {
   });
   return movie;
 }
+async function findUserByEmail(email) {
+  const user = await db.User.findOne({ where: { email } });
+  return user;
+}
 
 async function handleLogin(email, password) {
   let returnData = {};
@@ -93,5 +97,7 @@ const authServices = {
   handleLogin: handleLogin,
   handleRegister: handleRegister,
   findUserByID: findUserByID,
+  findUserByEmail: findUserByEmail,
+  createNewUser: createNewUser,
 };
 export default authServices;

@@ -7,11 +7,9 @@ export default (sequelize) => {
       // define association here
       this.belongsTo(models.Screening, {
         foreignKey: "screening_id",
-        as: "Screening",
       });
       this.belongsTo(models.User, {
         foreignKey: "user_id",
-        as: "User",
       });
     }
   }

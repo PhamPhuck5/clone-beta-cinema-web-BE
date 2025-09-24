@@ -23,7 +23,7 @@ export default (sequelize) => {
       },
       phonenumber: {
         type: DataTypes.CHAR(11),
-        allowNull: false,
+        allowNull: true,
         validate: {
           len: [10, 11],
         },
@@ -46,20 +46,6 @@ export default (sequelize) => {
       },
       gender: {
         type: DataTypes.ENUM("male", "female", "other"),
-        allowNull: true,
-      },
-      area: {
-        type: DataTypes.ENUM(
-          "Hồ Chí Minh",
-          "Hà Nội",
-          "Bình Dương",
-          "Hải Phòng",
-          "Nam Định"
-        ),
-        allowNull: true,
-      },
-      favoriteCinema: {
-        type: DataTypes.ENUM("onworking"),
         allowNull: true,
       },
       isAdmin: {

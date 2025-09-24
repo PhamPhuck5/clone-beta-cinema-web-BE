@@ -4,8 +4,9 @@ import dotenv from "dotenv";
 import configViewEngine from "./config/viewEngine.js";
 import initWebRouter from "./route/web.js";
 import connectDB from "./config/connectDB.js";
-import db from "./models/index.js"; // ← vì export default
+import db from "./models/index.js";
 import cors from "cors";
+import passport from "./config/oAuthFacebook.js";
 
 dotenv.config();
 
@@ -30,6 +31,8 @@ connectDB();
 db.sequelize.authenticate();
 // await db.sequelize.sync({ alter: true });
 await db.sequelize.sync();
+
+app.use(passport.initialize());
 
 let port = process.env.PORT || 6999;
 

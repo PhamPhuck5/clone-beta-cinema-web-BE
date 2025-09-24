@@ -1,8 +1,10 @@
 import authServices from "../services/baseService/authServices.js";
 import {
   generateAccessToken,
-  generateRefreshToken,
+  // generateRefreshToken,
 } from "../services/authServices/jwtServices.js";
+import process from "process";
+
 let requestIsLegit = (email, password) => {
   return email.length >= 8 && email[0] != " " && password.length >= 8;
 };
@@ -25,6 +27,27 @@ let handleLoggin = async (req, res) => {
       message: userData.message,
       data: userData.code === 200 ? userData : null,
     });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({
+      status: 500,
+      message: "Server error",
+    });
+  }
+};
+
+let handleFacebookLoggin = async (req, res) => {
+  try {
+    let id = req.user.id;
+    console.log("Facebook OAuth:" + id);
+    let accessToken = generateAccessToken({
+      id: id,
+    });
+    let name = (await authServices.findUserByID(id)).name;
+
+    return res.redirect(
+      `${process.env.URL_FE}/oAuthsuccess?token=${accessToken}&name=${name}`
+    );
   } catch (e) {
     console.error(e);
     return res.status(500).json({
@@ -78,6 +101,7 @@ let handleRegister = async (req, res) => {
 let hendleGetInfo = async (req, res) => {
   try {
     let id = req.user.id;
+    console.log("OAuth with Facebook, user id: " + id);
     let userData = await authServices.findUserByID(id);
     return res.status(200).json({
       status: userData.code,
@@ -142,5 +166,6 @@ const authControler = {
   handleLoggin: handleLoggin,
   handleRegister: handleRegister,
   hendleGetInfo: hendleGetInfo,
+  handleFacebookLoggin: handleFacebookLoggin,
 };
 export default authControler;
