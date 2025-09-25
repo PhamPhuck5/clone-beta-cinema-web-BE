@@ -40,6 +40,7 @@ let initWebRouter = (app) => {
 
   router.post("/api/login", auth.handleLoggin);
   router.post("/api/register", auth.handleRegister);
+  router.post("/api/forgot", auth.changePassword);
 
   router.post("/api/movie/add", authMiddleware, movie.handleImportMovie);
   router.post(

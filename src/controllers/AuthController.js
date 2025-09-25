@@ -120,6 +120,37 @@ let hendleGetInfo = async (req, res) => {
     });
   }
 };
+
+let changePassword = async (req, res) => {
+  try {
+    let user = await authServices.findUserByEmail(req.body.email);
+    if (user) {
+      authServices.changePassword(req.body.email, req.body.newPassword);
+      return res.status(200).json({
+        status: 200,
+        message: "ok",
+        data: {
+          ok: true,
+        },
+      });
+    } else {
+      return res.status(200).json({
+        status: 200, //wrong return config in fe
+        message: "can't find this account",
+        data: {
+          ok: false,
+          message: "can't find this account",
+        },
+      });
+    }
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({
+      status: 500,
+      message: "Server error",
+    });
+  }
+};
 // let handleRefreshToken = async (req, res) => {
 //   try {
 //     const { refreshToken } = req.body;
@@ -167,5 +198,6 @@ const authControler = {
   handleRegister: handleRegister,
   hendleGetInfo: hendleGetInfo,
   handleFacebookLoggin: handleFacebookLoggin,
+  changePassword: changePassword,
 };
 export default authControler;

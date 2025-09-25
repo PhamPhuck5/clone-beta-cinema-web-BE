@@ -1,10 +1,8 @@
 import db from "../../models/index.js";
 import bcrypt from "bcrypt";
-import {
-  generateAccessToken,
-  // generateRefreshToken,
-} from "../authServices/jwtServices.js";
-
+import crypto from "crypto";
+import { generateAccessToken } from "../authServices/jwtServices.js";
+import { changePasswordEmail } from "../../config/nodeMailer.js";
 const saltRounds = 10;
 
 async function checkEmail(email) {
@@ -16,10 +14,9 @@ async function checkLogin(email, password) {
   if (!user) {
     return null;
   }
-  //todo: check encrypted pass
   let check = await bcrypt.compare(password, user.password);
   if (check) {
-    //dosth more???
+    //if dosth more
     return user.id;
   } else {
     return null;
@@ -92,6 +89,24 @@ async function handleRegister(newUserData) {
   returnData.message = "user created";
   return returnData;
 }
+async function changePassword(email, newPassword) {
+  const user = await findUserByEmail(email);
+  const length = 10;
+  if (!newPassword) {
+    let Password = crypto
+      .randomBytes(length)
+      .toString("base64")
+      .replace(/[+/=]/g, "")
+      .substr(0, length);
+
+    user.password = await bcrypt.hash(Password, saltRounds);
+    await user.save();
+    changePasswordEmail(email, Password);
+  } else {
+    user.password = await bcrypt.hash(newPassword, saltRounds);
+    await user.save();
+  }
+}
 
 const authServices = {
   handleLogin: handleLogin,
@@ -99,5 +114,6 @@ const authServices = {
   findUserByID: findUserByID,
   findUserByEmail: findUserByEmail,
   createNewUser: createNewUser,
+  changePassword: changePassword,
 };
 export default authServices;
