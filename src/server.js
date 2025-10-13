@@ -8,6 +8,7 @@ import db from "./models/index.js";
 import cors from "cors";
 import passport from "./config/oAuthFacebook.js";
 import { start } from "./services/dailyService/dailyServices.js";
+import { limiter } from "./config/rateLimit.js";
 
 dotenv.config();
 
@@ -32,7 +33,7 @@ connectDB();
 db.sequelize.authenticate();
 // await db.sequelize.sync({ alter: true });
 await db.sequelize.sync();
-
+app.use(limiter);
 app.use(passport.initialize());
 
 let port = process.env.PORT || 6999;
