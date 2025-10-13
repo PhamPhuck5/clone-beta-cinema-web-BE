@@ -4,6 +4,13 @@ import theaterServices from "../services/baseService/theaterServices.js";
 import screeningServices from "../services/baseService/screeningServices.js";
 // import { getScreeningMovies } from "../services/cacheStorage.js"; // todo remove cmt
 
+let test = async (req, res) => {
+  return res.status(200).json({
+    status: 200,
+    message: "new movie created",
+  });
+};
+
 let handleImportMovie = async (req, res) => {
   try {
     // Todo add admin rights to add movies
@@ -208,5 +215,6 @@ const movieControler = {
   handleImportMovieTriler: handleImportMovieTriler,
   handleGetMoviesById: handleGetMoviesById,
   handleGetScreeningInTheater: handleGetScreeningInTheater,
+  test: test,
 };
 export default movieControler;

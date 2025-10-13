@@ -11,6 +11,12 @@ export default (sequelize) => {
       this.belongsTo(models.User, {
         foreignKey: "user_id",
       });
+      this.hasMany(models.Food, {
+        foreignKey: "order_id",
+      });
+      this.hasMany(models.Seat, {
+        foreignKey: "order_id",
+      });
     }
   }
 
@@ -21,10 +27,6 @@ export default (sequelize) => {
         allowNull: false,
       },
       user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      seat_number: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

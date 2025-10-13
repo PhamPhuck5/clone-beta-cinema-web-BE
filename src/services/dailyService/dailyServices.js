@@ -15,6 +15,5 @@ await dailyQueue.add(
 dailyQueue.process(async (job) => {
   console.log("Running daily job at", new Date());
   EmptySeatServices.removeOldCache();
-  orderServices.refreshNewOrder();
 });
 export const start = "todo find better way";

@@ -6,7 +6,6 @@ import movieServices from "./movieServices.js";
 import orderServices from "./orderServices.js";
 import emptySeatCacheService from "../cacheScreeningService.js";
 
-// import { addJob } from "../renewOrderService.js";
 async function existMovieAndTheater(screeningData) {
   console.log("checking movie and theater input");
   let theaterID = await theaterServices.getTheaterID(screeningData.theater);
@@ -74,7 +73,6 @@ async function createNewScreening(newScreeningData) {
     type_of_room: newScreeningData.type_of_room,
     date: newScreeningData.date,
   });
-  // await addJob(newScreeningData.date);
   return newScreening;
 }
 

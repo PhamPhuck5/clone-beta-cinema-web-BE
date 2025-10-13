@@ -284,67 +284,14 @@ async function buySeats(
 
   const seatNumbers = await getUserBookingStatus(screeningID, userID);
   for (const seat of seatNumbers) {
-    console.log(await getScreeningStatus(screeningID));
-
     if (!(await buySeat(screeningID, seat, userID))) {
       data.ok = false;
     }
-    console.log(await getScreeningStatus(screeningID));
   }
   const key = `screening${screeningID}user${userID}`;
   await redisInstance.del(key);
-  // const redisData = (await redisInstance.hGetAll!(key)) as any;
-  // console.log("data in key" + key + ": ");
-  // console.log(redisData);
-
-  // console.log(await getScreeningStatus(screeningID));
-  // await redisInstance.setBit(`screeningSeat${screeningID}`, 0, 0);
-  // await redisInstance.setBit(`screeningSeat${screeningID}`, 1, 0);
-  // await redisInstance.setBit(`screeningSeat${screeningID}`, 2, 0);
-  // await redisInstance.setBit(`screeningSeat${screeningID}`, 3, 0);
-  // await redisInstance.setBit(`screeningSeat${screeningID}`, 4, 0);
-  // await redisInstance.setBit(`screeningSeat${screeningID}`, 5, 0);
-  // await redisInstance.setBit(`screeningSeat${screeningID}`, 6, 0);
-  // console.log(await getScreeningStatus(screeningID));
-  // await redisInstance.setBit(`screeningSeat${screeningID}`, 0, 1);
-  // console.log(await getScreeningStatus(screeningID));
-  // console.log(await newGetBuffer(screeningID));
   return data;
 }
-
-// async function getStatus(
-//   screeningID: number
-//   //  userID: number
-// ): Promise<string> {
-//   // todo: let user paid
-//   let totalBytes: number = 38; //todo a service to this
-//   let totalSeat: number = 150; // find by screenid
-//   let data = "";
-//   let status: Uint8Array = await getScreeningStatus(screeningID);
-//   for (let i: number = 0; i < totalSeat; i++) {
-//     let byteIndex: number = Math.floor(i / 4); // seat*2/8
-//     let bitPos: number = (i * 2) % 8;
-//     let seatStatus: number = (status[byteIndex]! >> bitPos) & 3;
-//     //busy or free
-//     if (seatStatus == 3 || seatStatus == 0) {
-//       data += seatStatus;
-//     } //someone choose this * can be the current user
-//     // else {
-//     //   const choosingUserID = await redisInstance.get(
-//     //     `screening${screeningID}seat${i}`
-//     //   );
-//     //   // right user
-//     //   if (choosingUserID == userID.toString()) {
-//     //     await redisInstance.expire(`screening${screeningID}seat${i}`, 3 * 60);
-//     //     data += "1";
-//     //   }
-//     //   //wrong user
-//     //   else data += "2";
-//     // }
-//   }
-
-//   return data;
-// }
 
 async function getUserBookingStatus(
   screeningID: number,

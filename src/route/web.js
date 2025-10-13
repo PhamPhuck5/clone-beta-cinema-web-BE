@@ -9,9 +9,12 @@ import movie from "../controllers/movieControler.js";
 import screnning from "../controllers/screeningControler.js";
 import order from "../controllers/orderControler.js";
 import authControler from "../controllers/AuthController.js";
+import { adminRightMiddleware } from "../middlewares/adminRightMiddleware.js";
 let router = express.Router();
 
 let initWebRouter = (app) => {
+  router.post("/api/test", authMiddleware, adminRightMiddleware, movie.test);
+
   router.get("/api/movie/screening", movie.handleGetScreeningMovies);
   router.get("/api/movie/infomation", movie.handleGetMoviesById);
   router.get("/api/movie/screeningByDay", movie.handleGetScreeningInTheater);
@@ -42,21 +45,29 @@ let initWebRouter = (app) => {
   router.post("/api/register", auth.handleRegister);
   router.post("/api/forgot", auth.changePassword);
 
-  router.post("/api/movie/add", authMiddleware, movie.handleImportMovie);
+  router.post(
+    "/api/movie/add",
+    authMiddleware,
+    adminRightMiddleware,
+    movie.handleImportMovie
+  );
   router.post(
     "/api/movie/poster",
     authMiddleware,
+    adminRightMiddleware,
     multer.fields([{ name: "poster", maxCount: 1 }]),
     movie.handleImportMoviePoster
   );
   router.post(
     "/api/movie/triler",
     authMiddleware,
+    adminRightMiddleware,
     movie.handleImportMovieTriler
   );
   router.post(
     "/api/screening/add",
     authMiddleware,
+    adminRightMiddleware,
     screnning.handleImportScreening
   );
   router.post(

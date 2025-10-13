@@ -14,9 +14,9 @@ export default (sequelize) => {
       this.hasMany(models.Order, {
         foreignKey: "screening_id",
       });
-      this.hasMany(models.FinishedOrder, {
-        foreignKey: "screening_id",
-      });
+      // this.hasMany(models.FinishedOrder, {
+      //   foreignKey: "screening_id",
+      // });
     }
   }
 

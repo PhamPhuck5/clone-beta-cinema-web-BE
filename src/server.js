@@ -7,6 +7,7 @@ import connectDB from "./config/connectDB.js";
 import db from "./models/index.js";
 import cors from "cors";
 import passport from "./config/oAuthFacebook.js";
+import { start } from "./services/dailyService/dailyServices.js";
 
 dotenv.config();
 
