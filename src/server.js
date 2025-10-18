@@ -11,6 +11,7 @@ import { start } from "./services/dailyService/dailyServices.js";
 import { limiter } from "./config/rateLimit.js";
 
 dotenv.config();
+console.log("start server");
 
 let app = express();
 app.use(
@@ -31,25 +32,15 @@ initWebRouter(app);
 
 connectDB();
 db.sequelize.authenticate();
-// await db.sequelize.sync({ alter: true });
-await db.sequelize.sync();
+await db.sequelize.sync({ alter: true });
+// await db.sequelize.sync();
+console.log("finish working on connect db");
+
 app.use(limiter);
 app.use(passport.initialize());
 
 let port = process.env.PORT || 6999;
 
-app.listen(port, () => {
-  console.log(port);
+app.listen(port, "0.0.0.0", () => {
+  console.log("Server running on port:" + port);
 });
-
-/*
-user for test 
-{
-  "name": "Phúc Phạm",
-  "phonenumber": "0987654321",
-  "email": "phucpham@example.com",
-  "password": "yourSecurePassword123",
-  "dateOfBirth": "1998-05-21",
-  "gender": "male"
-}
-*/

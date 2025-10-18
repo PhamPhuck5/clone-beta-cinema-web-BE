@@ -1,0 +1,10 @@
+node_modules
+dist 
+
+docker-compose.yml
+.env
+.env.example
+.git
+
+comman.md
+sequelize.md
