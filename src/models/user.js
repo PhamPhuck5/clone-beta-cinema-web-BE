@@ -9,9 +9,6 @@ export default (sequelize) => {
       this.hasMany(models.Order, {
         foreignKey: "user_id",
       });
-      // this.hasMany(models.FinishedOrder, {
-      //   foreignKey: "user_id",
-      // });
     }
   }
 

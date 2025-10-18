@@ -1,18 +1,21 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 
-console.log("start connect to DB");
 dotenv.config();
+
 const sequelize = new Sequelize("test_db", "root", process.env.DB_PASSWORD, {
   host: "host.docker.internal",
   dialect: "mysql",
 });
-const connectDB = async () => {
+
+export const checkConnection = async () => {
   try {
     await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
+    console.log("connect to myssql success!");
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    console.error("can't connect to myssql:", error);
+    process.exit(1);
   }
 };
-export default connectDB;
+
+export default sequelize;

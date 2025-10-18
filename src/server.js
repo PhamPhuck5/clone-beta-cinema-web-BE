@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import configViewEngine from "./config/viewEngine.js";
 import initWebRouter from "./route/web.js";
-import connectDB from "./config/connectDB.js";
+import { checkConnection } from "./config/connectDB.js";
 import db from "./models/index.js";
 import cors from "cors";
 import passport from "./config/oAuthFacebook.js";
@@ -30,10 +30,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 configViewEngine(app);
 initWebRouter(app);
 
-connectDB();
+checkConnection();
 db.sequelize.authenticate();
-await db.sequelize.sync({ alter: true });
-// await db.sequelize.sync();
+// await db.sequelize.sync({ alter: true });
+await db.sequelize.sync();
 console.log("finish working on connect db");
 
 app.use(limiter);
