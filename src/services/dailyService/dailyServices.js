@@ -2,8 +2,10 @@ import Queue from "bull";
 import EmptySeatServices from "../cacheScreeningService.js";
 import orderServices from "../baseService/orderServices.js";
 
-const dailyQueue = new Queue("dailyQueue", "redis://127.0.0.1:6379");
+const redisUrl = process.env.REDIS_URL || "redis://127.0.0.1:6379";
+console.log(`[Queue] run daily queue with bull at: ${redisUrl}`);
 
+const dailyQueue = new Queue("dailyQueue", redisUrl);
 // Tạo job lặp hàng ngày
 await dailyQueue.add(
   {},

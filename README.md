@@ -2,7 +2,7 @@
 
 you can find fontend side here: https://github.com/PhamPhuck5/clone-beta-cinema-web-FE
 
-## This is a project clone Beta cinema webside using: nodejs and react
+## This is a project clone Beta cinema webside using: nodejs and react, it almost done just missing cash after choose combo and membership
 
 ## To run app
 
@@ -44,3 +44,16 @@ docker load -i server-app.tar
 # 2️⃣ Khởi chạy container
 docker compose up
 ```
+
+## To test app
+
+you can gen sample screening by
+
+```
+npx sequelize-cli db:seed:all
+
+```
+
+## NOTE
+
+Because this app don't have cashing so when you push continues the seats and combo will bought

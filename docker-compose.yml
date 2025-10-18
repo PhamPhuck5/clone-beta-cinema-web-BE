@@ -16,7 +16,12 @@ services:
       - "3003:3003"
     env_file:
       - .env
+    environment:
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - ./src/public:/usr/src/app/src/public
     depends_on:
       redis:
         condition: service_healthy
+
 
